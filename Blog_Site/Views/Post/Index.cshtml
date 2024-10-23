@@ -1,0 +1,177 @@
+﻿@model List<PostViewModel>
+<style>
+    .title button {
+        font-size: 17px;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: mediumpurple;
+        border: none;
+        float: right;
+    }
+
+        .title button:hover {
+            letter-spacing: 1px;
+            background-color: #fff;
+            color: mediumpurple;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .button-box{
+        display:flex;
+        
+    }
+
+ 
+
+</style>
+
+@{
+    var userRole = Context.Session.GetString("IsAdmin");
+}
+@if (userRole == "True")
+{
+    <div class="title">
+        <form asp-controller="Post" asp-action="Create" method="get">
+
+            <button>
+
+                <i class="fa-solid fa-plus fa-xl "></i>
+
+            </button>
+        </form>
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Kullanıcı</th>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Açıklama</th>
+                    <th scope="col">Resim</th>
+                    <th scope="col">İşlem</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width:2%">@item.UserId </td>
+                        <td style="width:18%">@item.Title</td>
+                        <td style="width:50%">@(item.Description.Length > 150 ? item.Description.Substring(0, 150) + "..." : item.Description)</td>
+                        <td style="width:10%"><img src="~/img/@item.Photo" alt=""></td>
+                        <td id="icons-coloum" style="width:20%;  ">
+                            <div class="button-box">
+
+                                <form asp-action="Delete" asp-controller="Post" method="post">
+                                    <input name="Id" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-danger ">
+
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </form>
+                                <form asp-action="ListPost" asp-controller="Post" method="get">
+                                    <input name="Id" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-success ">
+                                        <i class="fa-solid fa-info"></i>
+                                    </button>
+                                </form>
+                                <form asp-action="Detail" asp-controller="Post" method="get">
+                                    <input name="Id" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-success ">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+                                <form asp-action="ApprovePost" asp-controller="Post" method="post">
+                                    <input name="postId" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-success ">
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        @*  <i class="fa-regular fa-thumbs-down"></i> *@
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+}
+else
+{
+
+    <div class="title">
+        <form asp-controller="Post" asp-action="Create" method="get">
+
+            <button>
+
+                <i class="fa-solid fa-plus fa-xl "></i>
+
+            </button>
+        </form>
+        <table class=" table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Kullanıcı</th>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Açıklama</th>
+                    <th scope="col">Resim</th>
+                    <th style="text-align:center" scope="col">İşlem</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="width:2%">@item.UserId </td>
+                        <td style="width:18%">@item.Title</td>
+                        <td style="width:50%">@(item.Description.Length > 150 ? item.Description.Substring(0, 150) + "..." : item.Description)</td>
+                        <td style="width:10%"><img src="~/img/@item.Photo" alt=""></td>
+                        <td id="icons-coloum" style="width:20%; position:relative;">
+                            <div class="button-box">
+
+                                <form asp-action="Delete" asp-controller="Post" method="post">
+                                    <input name="Id" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-danger ">
+
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </form>
+                                <form asp-action="ListPost" asp-controller="Post" method="get">
+                                    <input name="Id" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-success ">
+                                        <i class="fa-solid fa-info"></i>
+                                    </button>
+                                </form>
+                                <form asp-action="Detail" asp-controller="Post" method="get">
+                                    <input name="Id" value="@item.Id" style="width:none" hidden />
+                                    <button class="btn  btn-outline-success ">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+}
+
+
+
+
+

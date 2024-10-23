@@ -1,0 +1,48 @@
+﻿<link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+@model UserViewModel
+<div class="container" id="RegisterForm">
+
+    <form id="RegisterForm" asp-controller="Account" asp-action="Register" method="post">
+        <div class="title">
+            Blog Kayıt Formu
+        </div>
+     
+        <div class="input-box">
+            
+            <input type="text" name="Name"  id="Name" placeholder="Adınızı Giriniz.">
+            <span asp-validation-for="Name"></span>
+            
+        </div>
+        <div class="input-box">
+            
+            <input type="text" name="SurName" id="SurName" placeholder="Soyadınızı Giriniz.">
+            <span asp-validation-for="SurName"></span>
+
+            
+        </div>
+        <div class="input-box">
+           
+            <input type="text" name="UserName" id="Username" placeholder="Kullanıcı Adınızı Giriniz.">
+            <span asp-validation-for="UserName"></span>
+
+            
+        </div>
+        <div class="input-box">
+            
+            <input type="Email" name="Email" id="Email" placeholder="Email Giriniz.">
+            <span asp-validation-for="Email"></span>
+            
+        </div>
+        <div class="input-box">          
+           
+            <input type="password" name="Password" id="Password" placeholder="Password">
+            <span asp-validation-for="Password"></span>
+
+        </div>
+
+        <div class="input-box button">
+            <input type="submit" value="Kaydol">
+        </div>
+        
+    </form>
+</div>

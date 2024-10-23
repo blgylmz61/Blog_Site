@@ -1,0 +1,163 @@
+﻿main {
+    display: grid; 
+    height: 100vh;
+    place-items: center;
+}
+
+body {
+    background: linear-gradient(to right,#F0F3FF 0%,#98ACF8 100%);
+}
+
+#LoginForm {
+    background-color: #fff;
+    max-width: 350px;
+    width: 100%;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px black;
+    position: relative;
+}
+
+#RegisterForm {
+    background-color: #fff;
+    max-width: 700px;
+    width: 150%;
+    padding: 25px 30px;
+    border-radius: 5px;
+    position: relative
+}
+
+.container form .title {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+    position: relative;
+}
+
+.container form .title::before {
+        content: "";
+        position: absolute;
+        height: 4px;
+        width: 33px;
+        bottom: 2px;
+        left: 0;
+        border-radius: 5px;
+        background-color: mediumpurple
+    }
+
+.container form .input-box {
+    width: 100%;
+    height: 45px;
+    margin:25px 0px 0px 0px;
+    position: relative;
+}
+.container form .input-box input {
+        height: 100%;
+        width: 100%;
+        outline: none;
+        font-size: 16px;
+        border: none;
+    }
+
+.container form .input-box textarea {
+       
+        width: 100%;
+        height: 200%;
+        outline: none;
+        font-size: 16px;
+        border: none;
+       
+    }
+
+
+.container #RegisterForm form .input-box input {
+    border: 1px ridge mediumpurple;
+    border-radius: 5px;
+}
+
+.container form .underline::before {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 100%;
+    background: #ccc;
+    left: 0;
+    bottom: 0;
+}
+
+.container form .underline::after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: mediumpurple;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.3s ease;
+}
+
+.container form .input-box input:focus ~ .underline::after,
+.container form .input-box input:valid ~ .underline::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.container form .input-box .button[type="submit"] {
+   
+    font-size: 17px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: mediumpurple;
+}
+
+.container form .input-box input[type="submit"] {
+    font-size: 17px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: mediumpurple;
+    transition: all 0.3s ease;
+}
+
+.container form .input-box input[type="submit"]:hover {
+        letter-spacing: 1px;
+        background-color: #fff;
+        color: mediumpurple;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+
+.container .text {
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+input[type="file"]::file-selector-button {
+    font-size: 17px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: mediumpurple;
+    transition: all 0.3s ease;
+}
+
+
+input[type="file"]::file-selector-button:hover 
+{
+        letter-spacing: 1px;
+        background-color: #fff;
+        color: mediumpurple;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+
+.container form .input-box .file {
+   
+margin:40px 0px 40px 0px;
+
+}
+

@@ -1,0 +1,156 @@
+﻿@model List<PostViewModel>
+<style>
+    .title{
+        margin-bottom:5px;
+    }
+    .title button {
+        font-size: 17px;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: mediumpurple;
+        border: none;
+        float: right;
+    }
+
+        .title button:hover {
+            letter-spacing: 1px;
+            background-color: #fff;
+            color: mediumpurple;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+    .grid-container {
+        display: grid; /* Grid layout kullanılır */
+        grid-template-columns: repeat(auto-fill, 200px); /* Her bir resim için sabit 200px genişlik */
+        grid-gap: 10px; /* Resimler arasındaki boşluk */
+    }
+
+        .grid-container img {
+            width: 200px; /* Sabit genişlik */
+            height: 200px; /* Sabit yükseklik */
+            object-fit: cover; /* Görüntüyü kırpmadan sabitler */
+            border-radius: 5px; /* İsteğe bağlı, köşeleri yuvarlar */
+            cursor:pointer;
+        }
+
+    .modal {
+        display: none; /* Başlangıçta gizli */
+        position: fixed; /* Ekranın her yerini kaplayacak */
+        z-index: 1000; /* Diğer içeriklerin üzerinde göster */
+        left: 0;
+        top: 0;
+        width: 100%; /* Tam ekran genişliği */
+        height: 100%; /* Tam ekran yüksekliği */
+        background-color: rgba(0, 0, 0, 0.9); /* Yarı saydam siyah arka plan */
+    }
+
+    /* Modalin içinde görüntülenen içerik */
+    .modal-content {
+        display: block;
+        margin: auto;
+        width: 90%; /* Ekranın %90'ına kadar büyüyebilir */
+        height: 90%; /* Ekranın %90'ına kadar büyüyebilir */
+    }
+
+    /* Kapatma butonu (X) */
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+</style>
+<div class="container ">
+    <div class="title">
+        <form asp-controller="Post" asp-action="Create" method="get">
+
+            <button>
+
+                <i class="fa-solid fa-plus fa-xl "></i>
+
+            </button>
+        </form>
+    </div>
+    <div class="grid-container">
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <img src="~/img/@item.Photo" class="card-img-top" alt="Küçük Resim">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@(item.Description.Length > 150 ? item.Description.Substring(0, 150) + "..." : item.Description)</p>
+
+                </div>
+                <div class="card-btn" style="position:relative">
+
+                    <form style="float:right" asp-action="Delete" asp-controller="Post" method="post">
+                        <input name="Id" value="@item.Id" style="width:none" hidden />
+                        <button class="btn  btn-outline-danger ">
+
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </form>
+                    <form style="float:right" asp-action="Update" asp-controller="Post" method="get">
+                        <input name="Id" value="@item.Id" style="width:none" hidden />
+                        <button class="btn  btn-outline-success ">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        }
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="imgModal">
+        </div>
+    </div>
+   
+</div>
+
+<script>
+    /*  Modal ve resim elementlerini seç */
+
+    var modal = document.getElementById("myModal");
+    let images = document.querySelectorAll("img");
+    var modalImg = document.getElementById("imgModal");
+    var closeBtn = document.getElementsByClassName("close")[0];
+   
+    images.forEach(function (image) {
+        image.addEventListener("click", function (event) {
+
+            /*  // Resme tıklanıldığında modalı aç */
+            modal.style.display = "block"; /* // Modalı görünür yap */
+            modalImg.src = event.target.src;; /* // Tıklanan resmin kaynağını modal içindeki büyük resme aktar */
+        });
+
+    });
+
+
+
+    // X işaretine tıklanıldığında modalı kapat
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Modalın dışında bir yere tıklayınca da modalı kapat
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

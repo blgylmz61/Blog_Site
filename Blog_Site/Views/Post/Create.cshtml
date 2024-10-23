@@ -1,0 +1,52 @@
+﻿<link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+
+@model PostViewModel
+
+@{
+    var userId = Context.Session.GetString("UserId");
+
+}
+
+@if (userId != null)
+{
+    
+<div class="container" id="CreatePost">
+
+    <form id="PostCreateForm" asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="title">
+            Post Ekle 
+        </div>
+
+        <div class="input-box">
+
+            <input type="text" class="form-control" name="Title" id="Title" placeholder="Başlık Giriniz.">
+            <span asp-validation-for="Title"></span>
+
+        </div>
+        <div class="input-box mb-3">
+
+            <textarea  name="Description" id="Description"   placeholder="Açıklama Giriniz." ></textarea>
+            <span asp-validation-for="Description"></span>
+
+
+        </div>
+
+        <div class="input-box file mt-5">
+
+            <label for ="fileUpload" id="fileUploadPhoto" > Resim Yükle</label>
+            <input type="file" id="fileUpload" name="PhotoUrl" value="" />
+            <span asp-validation-for="PhotoUrl"></span>
+
+        </div>
+        
+        <div class="input-box button">
+            <input type="submit" value="Kaydet">
+        </div>
+
+    </form>
+    </div>
+}
+else
+{
+    <h1 style="color:red">Lütfen Giriş Yapın</h1>
+}
